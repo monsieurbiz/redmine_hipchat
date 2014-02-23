@@ -11,7 +11,7 @@ class NotificationHook < Redmine::Hook::Listener
     tracker = CGI::escapeHTML(issue.tracker.name.downcase)
     subject = CGI::escapeHTML(issue.subject)
     url     = get_url(issue)
-    text    = "#{author} reported #{project.name} #{tracker} <a href=\"#{url}\">##{issue.id}</a>: #{subject}"
+    text    = "#{author} reported #{project.name} #{tracker} <a href=\"#{url}\">##{issue.id}: #{subject}</a>"
 
     data          = {}
     data[:text]   = text
@@ -32,7 +32,7 @@ class NotificationHook < Redmine::Hook::Listener
     subject = CGI::escapeHTML(issue.subject)
     comment = CGI::escapeHTML(context[:journal].notes)
     url     = get_url(issue)
-    text    = "#{author} updated #{project.name} #{tracker} <a href=\"#{url}\">##{issue.id}</a>: #{subject}"
+    text    = "#{author} updated #{project.name} #{tracker} <a href=\"#{url}\">##{issue.id}: #{subject}</a>"
     text   += ": <i>#{truncate(comment)}</i>" unless comment.blank?
 
     data          = {}
@@ -111,7 +111,7 @@ class NotificationHook < Redmine::Hook::Listener
       :auth_token => data[:token],
       :room_id => data[:room],
       :notify => data[:notify] ? 1 : 0,
-      :from => 'Redmine',
+      :from => 'Support',
       :message => data[:text]
     })
     req["Content-Type"] = 'application/x-www-form-urlencoded'
